@@ -1,0 +1,19 @@
+@openfulldive/plugin-api
+Copyright 2026 OpenFullDive
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Trademarks
+----------
+"OpenFullDive" and the OpenFullDive name and logo are trademarks of the
+OpenFullDive project. As stated in Section 6 of the Apache License, this
+license does NOT grant permission to use those trade names, trademarks,
+service marks, or product names, except as required for reasonable and
+customary use in describing the origin of this work.
+
+In particular, this license permits you to use, modify, and redistribute this
+software, but it does not permit you to use the "OpenFullDive" name to endorse
+or promote products derived from it, to imply affiliation or endorsement, or
+to name a fork or derivative in a way likely to cause confusion about its
+source. A derivative must be distributed under a name that is not "OpenFullDive"
+and does not incorporate the mark.

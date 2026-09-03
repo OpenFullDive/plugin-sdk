@@ -1,0 +1,43 @@
+{
+  "name": "@openfulldive/plugin-api",
+  "version": "0.1.0-alpha.0",
+  "description": "The plugin contract for OpenFullDive's build-time extension platform — manifest types, capability vocabulary, and validation helpers. No dependency on OpenFullDive's private core.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "openfulldive",
+    "plugin",
+    "extension"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^4.0.0"
+  }
+}
