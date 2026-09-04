@@ -31,6 +31,12 @@ plugin's *code* may call. It grants a plugin's users no permission of their own;
 every action on behalf of a person is authorized by the host, against the
 host's own rules.
 
+> **Building a plugin end to end?** This README is the contract reference. For
+> the full walkthrough — package layout, the UI storage bridge, the search
+> provider, and how a host mounts your route — see
+> [docs/authoring-a-plugin.md](./docs/authoring-a-plugin.md), with
+> `@openfulldive/plugin-roadmap` as the worked example.
+
 ## Declaring a manifest
 
 ```ts
