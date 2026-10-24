@@ -1,6 +1,6 @@
 {
   "name": "@openfulldive/plugin-api",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "The plugin contract for OpenFullDive's build-time extension platform — manifest types, capability vocabulary, and validation helpers. No dependency on OpenFullDive's private core.",
   "license": "Apache-2.0",
   "type": "module",

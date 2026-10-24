@@ -9,3 +9,16 @@
  */
 export * from "./types.js";
 export * from "./validation.js";
+
+export type {
+  PublicEvidenceDto,
+  PublicCapabilityDto,
+  PublicOrganizationDto,
+  PublicEvidenceQuery,
+  PublicEvidencePage,
+  PublicOrganizationQuery,
+  PublicEvidenceCapability,
+  PublicCapabilityCapability,
+  PublicOrganizationCapability,
+  PluginServerContext,
+} from "./types.js";
