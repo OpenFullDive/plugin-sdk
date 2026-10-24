@@ -175,3 +175,121 @@ export type ResolvedSearchCategory = {
   source: "plugin";
   order: number;
 };
+
+// ---------------------------------------------------------------------------
+// Public-read plugin capability contracts — Phase 8 of extension-platform-v0
+// ---------------------------------------------------------------------------
+
+/**
+ * Public evidence DTO — the shape a plugin receives when reading evidence.
+ * Deliberately excludes editorial content (claim, limitation, relevance),
+ * source details (sourceUrl, sourceTier), and internal state (editorId, published)
+ * so a future private field cannot silently enter the plugin contract.
+ */
+export type PublicEvidenceDto = {
+  id: string;
+  slug: string;
+  title: string;
+  observedAt: string;
+  publicationDate: string | null;
+  capabilityIds: string[];
+  organizationId: string | null;
+  sourceType: string | null;
+  labels: string[];
+};
+
+/** Public capability DTO — minimal metadata for analytics. */
+export type PublicCapabilityDto = {
+  id: string;
+  slug: string;
+  n: number;
+  name: string;
+};
+
+/** Public organization DTO — minimal metadata for analytics. */
+export type PublicOrganizationDto = {
+  id: string;
+  slug: string;
+  name: string;
+};
+
+// ---------------------------------------------------------------------------
+// Public-read query and response types
+// ---------------------------------------------------------------------------
+
+export type PublicEvidenceQuery = {
+  /** Max 500, default 200. */
+  limit?: number;
+  /** Max 10000, default 0. */
+  offset?: number;
+  /** Filter to evidence linked to this capability. */
+  capabilityId?: string;
+  /** Filter to evidence linked to this organization. */
+  organizationId?: string;
+  /** ISO date (YYYY-MM-DD). Only evidence observed on or after this date. */
+  observedAfter?: string;
+  /** ISO date (YYYY-MM-DD). Only evidence observed on or before this date. */
+  observedBefore?: string;
+};
+
+export type PublicEvidencePage = {
+  items: PublicEvidenceDto[];
+  total: number;
+};
+
+export type PublicOrganizationQuery = {
+  /** Max 200, default 100. */
+  limit?: number;
+  /** Max 10000, default 0. */
+  offset?: number;
+};
+
+// ---------------------------------------------------------------------------
+// Public-read capability interfaces
+// ---------------------------------------------------------------------------
+
+/**
+ * Read access to published evidence records. Gated by
+ * `public.evidence.read`. The host implementation filters to published-only
+ * and projects only DTO fields — a plugin never sees drafts, reviewer notes,
+ * or raw source URLs.
+ */
+export type PublicEvidenceCapability = {
+  list(query: PublicEvidenceQuery): Promise<PublicEvidencePage>;
+};
+
+/**
+ * Read access to capability definitions. Gated by
+ * `public.capability.read`.
+ */
+export type PublicCapabilityCapability = {
+  list(): Promise<PublicCapabilityDto[]>;
+  getBySlug(slug: string): Promise<PublicCapabilityDto | null>;
+};
+
+/**
+ * Read access to organization profiles. Gated by
+ * `public.organization.read`.
+ */
+export type PublicOrganizationCapability = {
+  list(query?: PublicOrganizationQuery): Promise<PublicOrganizationDto[]>;
+};
+
+// ---------------------------------------------------------------------------
+// Plugin server context — constructed by core for server-side plugin code
+// ---------------------------------------------------------------------------
+
+/**
+ * Server-only context injected by core into a plugin's server loader.
+ * Each capability field is present only when the corresponding grant was made
+ * at install time. A plugin that requires all three will fail installation
+ * if any is missing (`requires ⊆ grants`).
+ *
+ * This type is defined in the SDK so plugins can type their server loaders
+ * against it, but the *implementation* lives in core (`src/lib/plugin-server-context.ts`).
+ */
+export type PluginServerContext = {
+  evidence?: PublicEvidenceCapability;
+  capabilities?: PublicCapabilityCapability;
+  organizations?: PublicOrganizationCapability;
+};
